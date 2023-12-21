@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="'Editing ' + ${bicycle.getModel()}"></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{bicycles/header :: header}"></div>
+
+<div class="container mt-4">
+  <form th:action="@{/bicycles/{id}(id=${bicycle.getId()})}" th:method="PATCH" th:object="${bicycle}">
+    <h2>Edit Bicycle</h2>
+
+    <div class="form-group">
+      <label for="model">Bicycle Model:</label>
+      <input type="text" id="model" name="model" th:field="*{model}" class="form-control" required>
+      <div class="text-danger" th:if="${#fields.hasErrors('model')}" th:errors="*{model}">model Error</div>
+    </div>
+
+    <div class="form-group">
+      <label for="brand">Bicycle Brand:</label>
+      <input type="text" id="brand" name="brand" th:field="*{brand}" class="form-control" required>
+      <div class="text-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">brand Error</div>
+    </div>
+
+    <div class="form-group">
+      <label for="condition">Bicycle Condition:</label>
+      <input type="text" id="condition" name="condition" th:field="*{condition}" class="form-control" required>
+      <div class="text-danger" th:if="${#fields.hasErrors('condition')}" th:errors="*{condition}">condition Error</div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Bicycle Price:</label>
+      <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*" th:field="*{price}" class="form-control" required>
+      <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+    </div>
+
+    <div class="form-group">
+      <label for="speeds_count">Bicycle Speeds Count:</label>
+      <input type="number" id="speeds_count" name="speeds_count" th:field="*{speedsCount}" class="form-control" required>
+      <div class="text-danger" th:if="${#fields.hasErrors('speedsCount')}" th:errors="*{speedsCount}">speeds_count Error</div>
+    </div>
+
+    <button type="submit" name="action" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

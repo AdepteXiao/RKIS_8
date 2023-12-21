@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${bicycle.getModel()}"></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{bicycles/header :: header}"></div>
+<div class="container mt-4">
+  <h2 th:text="${bicycle.getModel() + ' by ' + bicycle.getBrand()}"></h2>
+  <p th:text="${bicycle.getCondition()}"></p>
+  <p th:text="${bicycle.getPrice() + ' $'}"></p>
+  <p th:text="${'We have ' + bicycle.getSpeedsCount()} + ' speeds count'"></p>
+  <a class="btn btn-primary" th:href="@{/bicycles/{id}/edit(id=${bicycle.getId()})}">Edit</a>
+  <form th:method="DELETE" th:action="@{/bicycles/{id}(id=${bicycle.getId()})}" style="display: inline;">
+    <button class="btn btn-danger" type="submit" name="action">Delete</button>
+  </form>
+  <form th:method="PATCH" th:action="@{/bicycles/{id}/buy(id=${bicycle.getId()})}" style="display: inline;">
+    <!-- Используем Thymeleaf для управления отображением кнопки в зависимости от значения getQuantity() -->
+    <button class="btn btn-primary" type="submit" name="action">Buy</button>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

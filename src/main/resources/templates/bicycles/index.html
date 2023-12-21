@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bicycles</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{bicycles/header :: header}"></div>
+<div class="container mt-4">
+  <form th:action="@{/bicycles/new}" th:method="GET">
+    <button type="submit" class="btn btn-primary">Add new bicycle</button>
+  </form>
+
+  <form th:action="@{/bicycles}" th:method="get">
+    <div class="form-group">
+      <label for="price">Максимальная цена:</label>
+      <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Найти по цене</button>
+  </form>
+
+  <div th:each="bicycle : ${bicycles}" class="row mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${bicycle.getModel() + ' by ' + bicycle.getBrand()}"></h5>
+          <p class="card-text" th:text="${bicycle.getCondition()}"></p>
+          <p class="card-text" th:text="${bicycle.getPrice() + ' $'}"></p>
+          <p class="card-text" th:text="${'We have ' + bicycle.getSpeedsCount()} + ' speeds count'"></p>
+          <a th:href="@{/bicycles/{id}(id=${bicycle.getId()})}" class="btn btn-primary">Open</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
